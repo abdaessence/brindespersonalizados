@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Brindes Personalizados</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f0eb;
+    color: #2c2c2c;
+    line-height: 1.6;
+    font-size: 17px;
+  }
+
+  .catalog-page {
+    max-width: 920px;
+    margin: 0 auto 40px;
+    background: #fff;
+    box-shadow: 0 0 40px rgba(0,0,0,0.08);
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2c2c2c 0%, #4a3f35 100%);
+    color: #fff;
+    text-align: center;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(212,175,120,0.1) 0%, transparent 60%);
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+  }
+  .header p { font-size: 1em; opacity: 0.8; font-weight: 300; position: relative; }
+  .header .gold-line { width: 60px; height: 2px; background: #d4af78; margin: 12px auto; position: relative; }
+
+  .settings-bar {
+    background: #faf7f3;
+    padding: 12px 50px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e8e0d8;
+    font-size: 0.82em;
+  }
+  .settings-bar label { font-weight: 500; color: #555; }
+  .settings-bar input {
+    border: 1.5px solid #e8e0d8;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    outline: none;
+    width: 200px;
+  }
+  .settings-bar input:focus { border-color: #d4af78; }
+
+  .section {
+    padding: 35px 50px;
+    border-bottom: 1px solid #e8e0d8;
+  }
+  .section-number {
+    display: inline-flex;
+    width: 30px; height: 30px;
+    background: #d4af78;
+    color: #fff;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+  }
+  .section-hint { font-size: 0.9em; color: #888; margin-bottom: 12px; }
+
+  .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .product-card {
+    border: 2px solid #e8e0d8;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    user-select: none;
+  }
+  .product-card:hover { border-color: #d4af78; }
+  .product-card.selected {
+    border-color: #d4af78;
+    background: #faf7f3;
+    box-shadow: 0 4px 20px rgba(212,175,120,0.2);
+  }
+  .product-card .check-circle {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid #d4af78;
+    background: #fff;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-card.selected .check-circle {
+    background: #d4af78;
+    border-color: #d4af78;
+  }
+  .product-card.selected .check-circle::after {
+    content: '✓';
+    color: #fff;
+    font-size: 0.65em;
+    font-weight: 700;
+  }
+  .product-card .img-area {
+    width: 100%; height: 180px;
+    background: #f5f0eb;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .product-card .img-area svg { width: 85%; height: 85%; }
+  .product-card .img-area img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .product-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05em; font-weight: 600; }
+
+  .config-card {
+    border: 2px solid #e8e0d8;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .config-card-header {
+    background: #4a3f35;
+    color: #fff;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .config-card-header h4 { font-family: 'Playfair Display', serif; font-size: 1.15em; }
+  .config-card-header .remove-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background 0.2s;
+  }
+  .config-card-header .remove-btn:hover { background: rgba(255,255,255,0.3); }
+  .config-card-body {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .config-subsection { min-width: 0; }
+  .config-subsection h5 {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .mini-grid.col4 { grid-template-columns: repeat(4, 1fr); }
+  .mini-option {
+    border: 1.5px solid #e8e0d8;
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.88em;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .mini-option:hover, .mini-option.selected {
+    border-color: #d4af78;
+    background: #faf7f3;
+  }
+  .mini-option .opt-title { font-weight: 600; color: #4a3f35; }
+  .mini-option .opt-sub { font-size: 0.8em; color: #999; }
+  .mini-option .opt-price {
+    font-weight: 700;
+    color: #d4af78;
+    font-size: 1.05em;
+  }
+  .mini-option.best { border-color: #d4af78; }
+  .mini-option.best::before {
+    content: 'MELHOR PREÇO';
+    display: block;
+    background: #d4af78;
+    color: #fff;
+    font-size: 0.6em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 0;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+
+  .check-badge-mini {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #d4af78;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 2;
+  }
+  .selected .check-badge-mini {
+    background: #d4af78;
+    border-color: #d4af78;
+  }
+  .selected .check-badge-mini::after {
+    content: '✓';
+    color: #fff;
+    font-size: 0.6em;
+    font-weight: 700;
+  }
+
+  .qty-box {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #d4af78;
+  }
+  .qty-box label {
+    font-size: 0.78em;
+    color: #888;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .qty-box input[type="number"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #d4af78;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.95em;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+  }
+  .qty-box .qty-total {
+    color: #d4af78;
+    font-weight: 700;
+    font-size: 0.95em;
+    margin-top: 4px;
+  }
+
+  .pkg-img-area {
+    width: 100%;
+    height: 180px;
+    background: #f5f0eb;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .pkg-img-area svg { width: 80%; height: 80%; }
+  .pkg-img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .fragrance-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .frag-tag {
+    padding: 9px 16px 9px 34px;
+    border: 1.5px solid #e8e0d8;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+    position: relative;
+  }
+  .frag-tag:hover, .frag-tag.selected {
+    border-color: #d4af78;
+    background: #faf7f3;
+    color: #6b5a3e;
+  }
+  .frag-tag .check-badge-mini {
+    left: 6px;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+  }
+
+  .label-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .label-card {
+    border: 2px solid #e8e0d8;
+    border-radius: 10px;
+    padding: 10px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.92em;
+    position: relative;
+  }
+  .label-card:hover, .label-card.selected {
+    border-color: #d4af78;
+    background: #faf7f3;
+  }
+  .label-card.selected { font-weight: 600; }
+  .label-preview {
+    width: 100%; height: 85px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .lbl-padrao { background: #f5f0eb; border: 1px solid #ddd; color: #888; }
+  .lbl-mensagem { background: #faf7f3; border: 2px solid #d4af78; color: #4a3f35; }
+  .label-card .label-price {
+    font-size: 0.82em;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .label-card .label-price.free { color: #4a9d5c; }
+  .label-card .label-price.paid { color: #d4af78; }
+
+  .acc-grid-config { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .acc-card-config {
+    border: 1.5px solid #e8e0d8;
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.88em;
+    position: relative;
+  }
+  .acc-card-config:hover, .acc-card-config.selected {
+    border-color: #d4af78;
+    background: #faf7f3;
+  }
+  .acc-card-config .acc-img-area {
+    width: 100%;
+    height: 65px;
+    background: #f5f0eb;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .acc-card-config .acc-img-area svg { width: 60%; height: 60%; }
+  .acc-card-config h4 { font-size: 0.95em; font-weight: 500; margin-bottom: 2px; }
+  .acc-card-config .acc-price { color: #d4af78; font-weight: 700; font-size: 1em; }
+
+  .empty-config {
+    text-align: center;
+    padding: 30px;
+    color: #b8a88a;
+    background: #faf7f3;
+    border-radius: 10px;
+  }
+  .empty-config .ec-icon { font-size: 2.5em; margin-bottom: 8px; }
+
+  .summary-sidebar {
+    position: fixed;
+    top: 0; right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -4px 0 30px rgba(0,0,0,0.12);
+    z-index: 1000;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .summary-sidebar.open { right: 0; }
+  .summary-header {
+    background: #2c2c2c;
+    color: #fff;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .summary-header h3 { font-family: 'Playfair Display', serif; font-size: 1.1em; }
+  .summary-close { background: none; border: none; color: #fff; font-size: 1.4em; cursor: pointer; }
+  .summary-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+  .summary-product {
+    background: #faf7f3;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .summary-product h4 { font-family: 'Playfair Display', serif; font-size: 1.05em; color: #4a3f35; margin-bottom: 8px; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.88em; padding: 3px 0; color: #555; }
+  .summary-row strong { color: #333; }
+  .summary-total {
+    background: #4a3f35;
+    color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .summary-total .gt-label { font-size: 0.78em; opacity: 0.7; }
+  .summary-total .gt-value { font-family: 'Playfair Display', serif; font-size: 1.8em; font-weight: 700; }
+  .summary-footer { padding: 20px 24px; border-top: 1px solid #e8e0d8; }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+  }
+  .btn-whatsapp { background: #25D366; color: #fff; }
+  .btn-whatsapp:hover { background: #1ebe5b; }
+  .btn-email { background: #2c2c2c; color: #fff; }
+  .btn-email:hover { background: #444; }
+  .btn-close-sidebar { background: #f5f0eb; color: #2c2c2c; }
+
+  .float-trigger {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: #d4af78;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(212,175,120,0.4);
+    z-index: 999;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .float-trigger:hover { transform: translateY(-2px); }
+  .float-trigger .badge {
+    background: #fff;
+    color: #d4af78;
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72em;
+    font-weight: 700;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .overlay.active { opacity: 1; pointer-events: auto; }
+
+  .footer { background: #2c2c2c; color: #fff; text-align: center; padding: 25px; }
+  .footer .brand { font-family: 'Playfair Display', serif; font-size: 1.05em; margin-bottom: 4px; }
+  .footer p { font-size: 0.78em; opacity: 0.65; }
+
+  @media print {
+    .float-trigger, .summary-sidebar, .overlay, .settings-bar { display: none !important; }
+  }
+
+  @media (max-width: 750px) {
+    body { font-size: 15px; }
+    .header { padding: 30px 18px; }
+    .header h1 { font-size: 1.6em; letter-spacing: 1px; }
+    .header p { font-size: 0.85em; }
+
+    .section { padding: 22px 16px; }
+    .section-title { font-size: 1.15em; flex-wrap: wrap; }
+    .section-hint { font-size: 0.82em; }
+
+    .product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .product-card { padding: 12px; }
+    .product-card .img-area { height: 120px; }
+    .product-card h3 { font-size: 0.9em; }
+
+    .config-card-body { grid-template-columns: 1fr; padding: 14px; }
+    .config-card-header h4 { font-size: 1em; }
+
+    .mini-grid.col4 { grid-template-columns: repeat(2, 1fr); }
+    .config-subsection .mini-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .mini-option {
+      padding: 10px 8px;
+    }
+    .mini-option .opt-title {
+      font-size: 0.85em;
+    }
+    .pkg-img-area { height: 110px; }
+
+    .label-grid { grid-template-columns: repeat(2, 1fr); }
+    .label-preview { height: 65px; font-size: 0.72em; }
+
+    .acc-grid-config { grid-template-columns: repeat(2, 1fr); }
+    .acc-card-config .acc-img-area { height: 55px; }
+
+    .settings-bar { padding: 10px 16px; flex-direction: column; align-items: stretch; gap: 10px; }
+    .settings-bar input { width: 100%; }
+
+    .summary-sidebar { width: 100%; right: -100%; }
+
+    .float-trigger {
+      bottom: 14px;
+      right: 14px;
+      padding: 11px 18px;
+      font-size: 0.85em;
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(212,175,120,0.45);
+    }
+    .float-trigger .badge { width: 18px; height: 18px; font-size: 0.68em; }
+  }
+
+  @media (max-width: 400px) {
+    .product-grid { grid-template-columns: 1fr; }
+    .acc-grid-config, .mini-grid.col4 { grid-template-columns: repeat(2, 1fr); }
+    .header h1 { font-size: 1.35em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="catalog-page">
+
+  <div class="header">
+    <h1>BRINDES PERSONALIZADOS</h1>
+    <div class="gold-line"></div>
+    <p>Presentes exclusivos para colaboradores, clientes e parceiros</p>
+  </div>
+
+  <div class="settings-bar">
+    <label>📱 WhatsApp:</label>
+    <input type="tel" id="waNumber" placeholder="5548991060026" value="5548991060026">
+    <label>✉️ Email:</label>
+    <input type="email" id="emailAddr" placeholder="abda.essence@gmail.com" value="abda.essence@gmail.com">
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="section-number">1</span> Escolha o(s) produto(s)</div>
+    <p class="section-hint">Clique para selecionar — <strong>pode escolher mais de um</strong>.</p>
+<div class="product-grid">
+
+      <div class="product-card" onclick="toggleProduct('vela', this)" data-name="Vela Aromática" data-key="vela">
+        <div class="img-area">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="110" width="70" height="50" rx="8" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <ellipse cx="65" cy="110" rx="35" ry="8" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+            <line x1="65" y1="110" x2="65" y2="95" stroke="#4a3f35" stroke-width="2"/>
+            <path d="M65 95 Q60 85 65 75 Q70 85 65 95Z" fill="#d4af78" stroke="#4a3f35" stroke-width="1.5"/>
+            <rect x="95" y="80" width="75" height="80" rx="10" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <ellipse cx="132" cy="80" rx="37" ry="10" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+            <ellipse cx="132" cy="80" rx="30" ry="7" stroke="#4a3f35" stroke-width="2" fill="#ede5db"/>
+            <line x1="132" y1="80" x2="132" y2="58" stroke="#4a3f35" stroke-width="2"/>
+            <path d="M132 58 Q125 42 132 28 Q139 42 132 58Z" fill="#d4af78" stroke="#4a3f35" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="check-circle"></div>
+        <h3>Vela Aromática</h3>
+      </div>
+
+      <div class="product-card" onclick="toggleProduct('difusor', this)" data-name="Difusor Varetas" data-key="difusor">
+        <div class="img-area">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="80" y1="20" x2="95" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="15" x2="100" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="120" y1="20" x2="105" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+            <rect x="85" y="90" width="30" height="15" rx="3" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <path d="M70 105 Q70 115 60 130 Q50 150 50 175 L150 175 Q150 150 140 130 Q130 115 130 105Z" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <ellipse cx="100" cy="105" rx="30" ry="6" stroke="#4a3f35" stroke-width="2" fill="#f5f0eb"/>
+            <line x1="95" y1="100" x2="90" y2="160" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+            <line x1="100" y1="100" x2="100" y2="165" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+            <line x1="105" y1="100" x2="110" y2="160" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="check-circle"></div>
+        <h3>Difusor Varetas</h3>
+      </div>
+
+      <div class="product-card" onclick="toggleProduct('homespray', this)" data-name="Home Spray" data-key="homespray">
+        <div class="img-area">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="75" y="90" width="50" height="90" rx="8" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <rect x="80" y="75" width="40" height="18" rx="4" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+            <path d="M90 75 L90 60 Q90 55 95 55 L115 55 Q120 55 120 60 L120 75" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <path d="M120 60 L140 50 Q145 48 145 53 L145 58 Q145 62 140 60 L120 68" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+            <line x1="145" y1="52" x2="160" y2="45" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+            <line x1="148" y1="55" x2="163" y2="52" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+            <line x1="147" y1="58" x2="160" y2="60" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="check-circle"></div>
+        <h3>Home Spray</h3>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section" id="sectionConfig">
+    <div class="section-title"><span class="section-number">2</span> Configure cada produto</div>
+    <div id="configContainer">
+      <div class="empty-config">
+        <div class="ec-icon">📦</div>
+        <p>Selecione um ou mais produtos acima para começar a configurar</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="brand">ab'da essence - you choose your best</p>
+    <p>abda.essence@gmail.com.br • (48) 99106-0026</p>
+  </div>
+</div>
+
+<button class="float-trigger" onclick="openSidebar()">
+  📋 Ver Orçamento <span class="badge" id="itemCount">0</span>
+</button>
+
+<div class="summary-sidebar" id="sidebar">
+  <div class="summary-header">
+    <h3>📋 Resumo do Orçamento</h3>
+    <button class="summary-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="summary-body" id="summaryBody"></div>
+  <div class="summary-footer">
+    <button class="btn btn-whatsapp" onclick="sendWhatsApp()">📱 Enviar por WhatsApp</button>
+    <button class="btn btn-email" onclick="sendEmail()">✉️ Enviar por Email</button>
+    <button class="btn btn-close-sidebar" onclick="closeSidebar()">Voltar</button>
+  </div>
+</div>
+
+<script>
+const svgIcons = {
+  vela: `<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="110" width="70" height="50" rx="8" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <ellipse cx="65" cy="110" rx="35" ry="8" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+    <line x1="65" y1="110" x2="65" y2="95" stroke="#4a3f35" stroke-width="2"/>
+    <path d="M65 95 Q60 85 65 75 Q70 85 65 95Z" fill="#d4af78" stroke="#4a3f35" stroke-width="1.5"/>
+    <rect x="95" y="80" width="75" height="80" rx="10" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <ellipse cx="132" cy="80" rx="37" ry="10" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+    <ellipse cx="132" cy="80" rx="30" ry="7" stroke="#4a3f35" stroke-width="2" fill="#ede5db"/>
+    <line x1="132" y1="80" x2="132" y2="58" stroke="#4a3f35" stroke-width="2"/>
+    <path d="M132 58 Q125 42 132 28 Q139 42 132 58Z" fill="#d4af78" stroke="#4a3f35" stroke-width="1.5"/>
+  </svg>`,
+  difusor: `<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="80" y1="20" x2="95" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="15" x2="100" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+    <line x1="120" y1="20" x2="105" y2="100" stroke="#4a3f35" stroke-width="4" stroke-linecap="round"/>
+    <rect x="85" y="90" width="30" height="15" rx="3" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <path d="M70 105 Q70 115 60 130 Q50 150 50 175 L150 175 Q150 150 140 130 Q130 115 130 105Z" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <ellipse cx="100" cy="105" rx="30" ry="6" stroke="#4a3f35" stroke-width="2" fill="#f5f0eb"/>
+    <line x1="95" y1="100" x2="90" y2="160" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="100" y2="165" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+    <line x1="105" y1="100" x2="110" y2="160" stroke="#4a3f35" stroke-width="3" stroke-linecap="round"/>
+  </svg>`,
+  homespray: `<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="75" y="90" width="50" height="90" rx="8" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <rect x="80" y="75" width="40" height="18" rx="4" stroke="#4a3f35" stroke-width="3" fill="#f5f0eb"/>
+    <path d="M90 75 L90 60 Q90 55 95 55 L115 55 Q120 55 120 60 L120 75" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <path d="M120 60 L140 50 Q145 48 145 53 L145 58 Q145 62 140 60 L120 68" stroke="#4a3f35" stroke-width="3" fill="#faf7f3"/>
+    <line x1="145" y1="52" x2="160" y2="45" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+    <line x1="148" y1="55" x2="163" y2="52" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+    <line x1="147" y1="58" x2="160" y2="60" stroke="#4a3f35" stroke-width="2" stroke-linecap="round"/>
+  </svg>`
+};
+
+const packagingImages = {
+  vela: {
+    '20g': 'https://acdn-us.mitiendanube.com/stores/001/281/104/products/dscf4661-fef5e8ac86f794ade117268550161073-1024-1024.webp',
+    '40g': 'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lvs3830jyyb05b',
+    '70g': 'https://lh3.googleusercontent.com/d/19y4TIKNjlTPXVrBMp-2Bk1Q0UKJctIJ0',
+    '150g': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUqHVHwoj8l8ejBWGuMWB_mLz0O4J16nXc0lDaY1wgA&s',
+  },
+  difusor: {
+    '30ml': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRscv3lVdHOyc30uwzJeiua7ZhShO286JhXJiw3oLdBBA&s=10',
+    '140ml': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO0FVRS1Rm41H6wlGGvAAmfm8gsAczTBTHtSHDguxa8Q&s',
+  },
+  homespray: {
+    '30ml': 'https://lh3.googleusercontent.com/d/16YU0NGqX-bMyXMq7lSeEBaAnNMKoIKaB',
+    '100ml': 'https://lh3.googleusercontent.com/d/1f9THC1koDII3s9wN0CVLmD1I8SDNj_55',
+    '150ml': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDr1ic1Xkf3MhUWy1rj9vm2v8iHs8i_-VPcg1U_eKIQA&s',
+    '180ml': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsUBmqqug-lJuiF-M5t-DsthpRLLrfv-0zwKPTs_Br4g&s',
+  }
+};
+
+const catalog = {
+  vela: {
+    name: 'Vela Aromática',
+    icon: '🕯️',
+    svgKey: 'vela',
+    packaging: [
+      { vol: '20g',  label: 'Lata 20g — Altura: 7cm Largura: 2,7cm',  labels: ['padrao', 'mensagem'] },
+      { vol: '40g',  label: 'Lata 40g — Altura: 7cm Largura: 4cm',    labels: ['padrao', 'mensagem'] },
+      { vol: '70g',  label: 'Vidro 70g — Altura: 5,5cm Largura: 6cm', labels: ['padrao', 'mensagem'] },
+      { vol: '150g', label: 'Vidro 150g — Altura: 8cm Largura: 8cm',  labels: ['padrao', 'mensagem'] }
+    ],
+    fragrances: ['Cereja e Avelã', 'Alecrim', 'Baby', 'Bergamota', 'Chá Branco', 'Ameixa Negra', 'Vanilla e Caramelo'],
+    pricesByPackaging: {
+      '20g': [
+        { qty: 1,  unit: 15.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 14.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 13.00, label: '25 a 49 un.' },
+        { qty: 50, unit: 12.00, label: '50+ un.', best: true }
+      ],
+      '40g': [
+        { qty: 1,  unit: 32.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 30.50, label: '11 a 24 un.' },
+        { qty: 25, unit: 29.00, label: '25 a 49 un.' },
+        { qty: 50, unit: 27.50, label: '50+ un.', best: true }
+      ],
+      '70g': [
+        { qty: 1,  unit: 35.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 33.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 31.50, label: '25 a 49 un.' },
+        { qty: 50, unit: 30.00, label: '50+ un.', best: true }
+      ],
+      '150g': [
+        { qty: 5,  unit: 50.00, label: '5 a 10 un.' },
+        { qty: 11, unit: 47.50, label: '11 a 20 un.' },
+        { qty: 21, unit: 45.00, label: '21 a 34 un.' },
+        { qty: 35, unit: 42.00, label: '35+ un.', best: true }
+      ]
+    }
+  },
+  difusor: {
+    name: 'Difusor Varetas',
+    icon: '🌿',
+    svgKey: 'difusor',
+    packaging: [
+      { vol: '30ml',  label: 'Compacto', labels: ['padrao', 'mensagem'] },
+      { vol: '140ml', label: 'Frasco PET — Altura: 9cm Largura: 6cm', labels: ['padrao', 'mensagem'] }
+    ],
+    fragrances: ['Cereja e Avelã', 'Chá Branco', 'Ameixa Negra'],
+    prices: [
+      { qty: 10, unit: 55, label: '10 a 24 un.' },
+      { qty: 25, unit: 48, label: '25 a 49 un.' },
+      { qty: 50, unit: 42, label: '50 a 99 un.' },
+      { qty: 100, unit: 36, label: '100 a 199 un.', best: true },
+      { qty: 200, unit: 30, label: '200+ un.', best: true }
+    ]
+  },
+  homespray: {
+    name: 'Home Spray',
+    icon: '✨',
+    svgKey: 'homespray',
+    packaging: [
+      { vol: '30ml',  label: 'Frasco PET — Altura: 10,5cm Largura: 3cm',   labels: ['padrao', 'mensagem'] },
+      { vol: '100ml', label: 'Frasco PET — Altura: 13,5cm Largura: 4,5cm', labels: ['padrao', 'mensagem'] },
+      { vol: '150ml', label: 'Frasco Vidro — Altura: 15cm Largura: 5,5cm', labels: ['padrao', 'mensagem'] },
+      { vol: '180ml', label: 'Frasco PET — Altura: 17cm Largura: 6cm',     labels: ['padrao', 'mensagem'] }
+    ],
+    fragrances: ['Cereja e Avelã', 'Alecrim', 'Chá Branco', 'Ameixa Negra', 'Vanilla e Caramelo'],
+    prices: [
+      { qty: 10, unit: 38, label: '10 a 24 un.' },
+      { qty: 25, unit: 32, label: '25 a 49 un.' },
+      { qty: 50, unit: 27, label: '50 a 99 un.' },
+      { qty: 100, unit: 23, label: '100 a 199 un.', best: true },
+      { qty: 200, unit: 19, label: '200+ un.', best: true }
+    ]
+  }
+};
+
+const labelModels = [
+  { id: 'padrao', name: "Rótulo ab'da essence", class: 'lbl-padrao', preview: 'PADRÃO', price: 0 },
+  { id: 'mensagem', name: 'Rótulo Personalizado', class: 'lbl-mensagem', preview: 'PERSONALIZADO', price: 10.00 }
+];
+
+const labelPrices = {
+  'padrao': 0,
+  'mensagem': 10.00
+};
+
+const labelNames = {
+  'padrao': "Rótulo ab'da essence",
+  'mensagem': 'Rótulo Personalizado'
+};
+
+const accessories = [
+  { id: 'nenhum', name: 'Nenhum acessório', price: 0, icon: '❌' },
+  { id: 'sacola', name: "Sacola ab'da", price: 3.50, icon: '🛍️' },
+  { id: 'tecido70', name: 'Tecido em Algodão + Tag (Vela 70g)', price: 3.50, icon: '🧵' },
+  { id: 'tecido150', name: 'Tecido em Algodão + Tag (Vela 150g)', price: 3.75, icon: '🧵' }
+];
+
+const accessoryImages = {
+  sacola: 'https://lh3.googleusercontent.com/d/138BLQM711miQPXyGV0_Q2koOvji9n4pI',
+  tecido70: 'https://lh3.googleusercontent.com/d/1T5t-lun-UMI8oYsW5-Vp70_SFigm5Why',
+  tecido150: 'https://lh3.googleusercontent.com/d/1luLtdIgyH5b8KyHPRzjS591kr0POXgMn'
+};
+
+let selectedProducts = new Set();
+let configs = {};
+
+function getConfig(key) {
+  if (!configs[key]) configs[key] = { packaging: null, fragrance: null, qty: null, priceUnit: null, tierMinQty: null, label: null, accessories: [] };
+  return configs[key];
+}
+
+function getPackagingImage(productKey, volume) {
+  const imgUrl = packagingImages[productKey] && packagingImages[productKey][volume];
+  if (imgUrl && imgUrl.trim() !== '') {
+    return '<img src="' + imgUrl + '" alt="' + volume + '">';
+  }
+  return svgIcons[catalog[productKey].svgKey];
+}
+
+function getAccessoryImage(accId, fallbackIcon) {
+  const imgUrl = accessoryImages[accId];
+  if (imgUrl && imgUrl.trim() !== '') {
+    return '<img src="' + imgUrl + '" alt="' + accId + '" style="width:150%;height:150%;object-fit:contain;border-radius:6px;">';
+  }
+  return '<div class="acc-icon" style="font-size:1.5em;">' + fallbackIcon + '</div>';
+}
+
+function getPriceList(key, cfg) {
+  const data = catalog[key];
+  if (data.pricesByPackaging) {
+    return cfg.packaging ? data.pricesByPackaging[cfg.packaging] : null;
+  }
+  return data.prices;
+}
+
+function getLabelExtraFixed(cfg) {
+  return cfg.label ? (labelPrices[cfg.label] || 0) : 0;
+}
+
+function toggleProduct(key, el) {
+  if (selectedProducts.has(key)) {
+    selectedProducts.delete(key);
+    el.classList.remove('selected');
+    delete configs[key];
+  } else {
+    selectedProducts.add(key);
+    el.classList.add('selected');
+    getConfig(key);
+  }
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function renderConfigPanels() {
+  const container = document.getElementById('configContainer');
+  if (selectedProducts.size === 0) {
+    container.innerHTML = '<div class="empty-config"><div class="ec-icon">📦</div><p>Selecione um ou mais produtos acima para começar a configurar</p></div>';
+    return;
+  }
+  let html = '';
+  selectedProducts.forEach(key => {
+    const data = catalog[key];
+    const cfg = getConfig(key);
+    html += buildConfigCard(key, data, cfg);
+  });
+  container.innerHTML = html;
+}
+
+function buildConfigCard(key, data, cfg) {
+  let h = '';
+  h += '<div class="config-card">';
+  h += '<div class="config-card-header">';
+  h += '<h4>' + data.icon + ' ' + data.name + '</h4>';
+  h += '<button class="remove-btn" onclick="removeProduct(\'' + key + '\')" title="Remover">✕</button>';
+  h += '</div>';
+  h += '<div class="config-card-body">';
+
+  h += '<div class="config-subsection">';
+  h += '<h5>🧴 Embalagem</h5>';
+  h += '<div class="mini-grid col4">';
+  data.packaging.forEach((p) => {
+    const sel = cfg.packaging === p.vol ? ' selected' : '';
+    h += '<div class="mini-option' + sel + '" onclick="setConfig(\'' + key + '\',\'packaging\',\'' + p.vol + '\',this)">';
+    h += '<div class="check-badge-mini"></div>';
+    h += '<div class="pkg-img-area">' + getPackagingImage(key, p.vol) + '</div>';
+    h += '<div class="opt-title">' + p.vol + '</div>';
+    h += '<div class="opt-sub">' + p.label + '</div>';
+    h += '</div>';
+  });
+  h += '</div></div>';
+
+  h += '<div class="config-subsection">';
+  h += '<h5>🌸 Fragrância</h5>';
+  h += '<div class="fragrance-grid">';
+  data.fragrances.forEach(f => {
+    const sel = cfg.fragrance === f ? ' selected' : '';
+    h += '<div class="frag-tag' + sel + '" onclick="setConfig(\'' + key + '\',\'fragrance\',\'' + f + '\',this)">';
+    h += '<div class="check-badge-mini"></div>' + f + '</div>';
+  });
+  h += '</div></div>';
+
+  h += '<div class="config-subsection" style="grid-column:1/-1;">';
+  h += '<h5>📦 Quantidade & Preço</h5>';
+
+  const priceList = getPriceList(key, cfg);
+  const labelExtraFixed = getLabelExtraFixed(cfg);
+
+  if (data.pricesByPackaging && !cfg.packaging) {
+    h += '<p style="font-size:0.85em;color:#999;">Selecione uma embalagem primeiro</p>';
+  } else if (!priceList) {
+    h += '<p style="font-size:0.85em;color:#999;">Sem tabela de preço para esta embalagem</p>';
+  } else {
+    h += '<div class="mini-grid" style="grid-template-columns:repeat(' + priceList.length + ',1fr);">';
+    priceList.forEach((price) => {
+      const isActiveTier = cfg.priceUnit === price.unit && cfg.tierMinQty === price.qty;
+      const sel = isActiveTier ? ' selected' : '';
+      const bestClass = price.best ? ' best' : '';
+      const displayQty = isActiveTier && cfg.qty ? cfg.qty : price.qty;
+      const total = (displayQty * price.unit) + labelExtraFixed;
+
+      h += '<div class="mini-option' + sel + bestClass + '">';
+      h += '<div class="check-badge-mini"></div>';
+      h += '<div onclick="setPrice(\'' + key + '\',' + price.qty + ',' + price.unit + ')" style="cursor:pointer;">';
+      h += '<div class="opt-title">' + price.label + '</div>';
+      h += '<div class="opt-price">R$' + price.unit.toFixed(2).replace('.', ',') + '</div>';
+      h += '<div class="opt-sub">/un</div>';
+      h += '</div>';
+
+      if (isActiveTier) {
+        h += '<div class="qty-box" onclick="event.stopPropagation();">';
+        h += '<label>Quantidade exata:</label>';
+        h += '<input type="number" min="' + price.qty + '" value="' + displayQty + '" ';
+        h += 'onchange="updateExactQty(\'' + key + '\',this.value,' + price.qty + ',' + price.unit + ')" />';
+        if (labelExtraFixed > 0) {
+          h += '<div class="opt-sub" style="margin-top:4px;">+ R$' + labelExtraFixed.toFixed(2).replace('.', ',') + ' (rótulo, valor fixo)</div>';
+        }
+        h += '<div class="qty-total">Total: R$' + total.toFixed(2).replace('.', ',') + '</div>';
+        h += '</div>';
+      }
+
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+
+  h += '<div class="config-subsection" style="grid-column:1/-1;">';
+  h += '<h5>🏷️ Modelo do Rótulo</h5>';
+
+  if (!cfg.packaging) {
+    h += '<p style="font-size:0.85em;color:#999;">Selecione uma embalagem primeiro</p>';
+  } else {
+    h += '<div class="label-grid">';
+    labelModels.forEach(lm => {
+      const sel = cfg.label === lm.id ? ' selected' : '';
+      h += '<div class="label-card' + sel + '" onclick="setConfig(\'' + key + '\',\'label\',\'' + lm.id + '\',this)">';
+      h += '<div class="check-badge-mini"></div>';
+      h += '<div class="label-preview ' + lm.class + '">' + lm.preview + '</div>';
+      h += lm.name;
+      if (lm.price > 0) {
+        h += '<div class="label-price paid">+ R$ ' + lm.price.toFixed(2).replace('.', ',') + ' (valor fixo)</div>';
+      } else {
+        h += '<div class="label-price free">Grátis</div>';
+      }
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+
+  h += '<div class="config-subsection" style="grid-column:1/-1;">';
+  h += '<h5>🎁 Acessórios / Extras</h5>';
+  h += '<div class="acc-grid-config">';
+  accessories.forEach(acc => {
+    const isSelected = cfg.accessories.includes(acc.id);
+    const sel = isSelected ? ' selected' : '';
+    h += '<div class="acc-card-config' + sel + '" onclick="toggleAccConfig(\'' + key + '\',\'' + acc.id + '\',this)">';
+    h += '<div class="check-badge-mini"></div>';
+    h += '<div class="acc-img-area">' + getAccessoryImage(acc.id, acc.icon) + '</div>';
+    h += '<h4>' + acc.name + '</h4>';
+    if (acc.price > 0) {
+      h += '<div class="acc-price">R$ ' + acc.price.toFixed(2).replace('.', ',') + '/un</div>';
+    } else {
+      h += '<div class="acc-price" style="color:#999;">Grátis</div>';
+    }
+    h += '</div>';
+  });
+  h += '</div></div>';
+
+  h += '</div></div>';
+  return h;
+}
+
+function setConfig(key, field, value, el) {
+  const cfg = getConfig(key);
+  cfg[field] = value;
+
+  if (field === 'packaging') {
+    if (catalog[key].pricesByPackaging) {
+      cfg.qty = null;
+      cfg.priceUnit = null;
+      cfg.tierMinQty = null;
+    }
+    renderConfigPanels();
+    updateSummary();
+    updateBadge();
+    return;
+  }
+
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function setPrice(key, minQty, unit) {
+  const cfg = getConfig(key);
+  cfg.qty = minQty;
+  cfg.priceUnit = unit;
+  cfg.tierMinQty = minQty;
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function updateExactQty(key, value, minQty, unit) {
+  const cfg = getConfig(key);
+  let qty = parseInt(value, 10);
+  if (isNaN(qty) || qty < minQty) {
+    qty = minQty;
+  }
+  cfg.qty = qty;
+  cfg.priceUnit = unit;
+  cfg.tierMinQty = minQty;
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function toggleAccConfig(key, accId, el) {
+  const cfg = getConfig(key);
+  if (accId === 'nenhum') {
+    cfg.accessories = ['nenhum'];
+  } else {
+    cfg.accessories = cfg.accessories.filter(a => a !== 'nenhum');
+    if (cfg.accessories.includes(accId)) {
+      cfg.accessories = cfg.accessories.filter(a => a !== accId);
+    } else {
+      cfg.accessories.push(accId);
+    }
+    if (cfg.accessories.length === 0) cfg.accessories = ['nenhum'];
+  }
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function removeProduct(key) {
+  selectedProducts.delete(key);
+  document.querySelectorAll('.product-card').forEach(c => {
+    if (c.dataset.key === key) c.classList.remove('selected');
+  });
+  delete configs[key];
+  renderConfigPanels();
+  updateSummary();
+  updateBadge();
+}
+
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('active');
+  updateSummary();
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+function countSelections() {
+  let c = selectedProducts.size;
+  selectedProducts.forEach(k => {
+    const cfg = configs[k] || {};
+    if (cfg.packaging) c++;
+    if (cfg.fragrance) c++;
+    if (cfg.qty) c++;
+    if (cfg.label) c++;
+    if (cfg.accessories && cfg.accessories.length > 0 && !cfg.accessories.includes('nenhum')) c++;
+  });
+  return c;
+}
+
+function updateBadge() {
+  document.getElementById('itemCount').textContent = countSelections();
+}
+
+function updateSummary() {
+  const body = document.getElementById('summaryBody');
+
+  if (selectedProducts.size === 0) {
+    body.innerHTML = '<p style="color:#bbb;text-align:center;padding:30px;">Nenhum produto selecionado ainda.</p>';
+    return;
+  }
+
+  let html = '';
+  let grandTotal = 0;
+
+  selectedProducts.forEach(key => {
+    const data = catalog[key];
+    const cfg = configs[key] || {};
+    const labelExtraFixed = getLabelExtraFixed(cfg);
+    const productTotal = cfg.qty && cfg.priceUnit ? (cfg.qty * cfg.priceUnit) + labelExtraFixed : 0;
+    const labelCost = labelExtraFixed;
+
+    let accTotal = 0;
+    const accNames = [];
+    if (cfg.accessories && cfg.accessories.length > 0 && !cfg.accessories.includes('nenhum')) {
+      cfg.accessories.forEach(accId => {
+        const acc = accessories.find(a => a.id === accId);
+        if (acc) {
+          accNames.push(acc.name + ' (R$' + acc.price.toFixed(2).replace('.', ',') + '/un)');
+          accTotal += acc.price * (cfg.qty || 0);
+        }
+      });
+    }
+
+    const total = productTotal + accTotal;
+    grandTotal += total;
+
+    html += '<div class="summary-product">';
+    html += '<h4>' + data.icon + ' ' + data.name + '</h4>';
+    html += '<div class="summary-row"><span>Embalagem:</span> <strong>' + (cfg.packaging || '—') + '</strong></div>';
+    html += '<div class="summary-row"><span>Fragrância:</span> <strong>' + (cfg.fragrance || '—') + '</strong></div>';
+    html += '<div class="summary-row"><span>Quantidade:</span> <strong>' + (cfg.qty ? cfg.qty + ' un.' : '—') + '</strong></div>';
+    if (cfg.priceUnit) html += '<div class="summary-row"><span>Preço unitário:</span> <strong>R$ ' + cfg.priceUnit.toFixed(2).replace('.', ',') + '</strong></div>';
+    html += '<div class="summary-row"><span>Rótulo:</span> <strong>' + (cfg.label ? (labelNames[cfg.label] || '—') : '—') + (cfg.label === 'mensagem' ? ' (+R$10,00)' : (cfg.label === 'padrao' ? ' (Grátis)' : '')) + '</strong></div>';
+    if (labelCost > 0) html += '<div class="summary-row"><span>Custo rótulo:</span> <strong>R$ ' + labelCost.toFixed(2).replace('.', ',') + '</strong></div>';
+    if (accNames.length > 0) {
+      html += '<div class="summary-row"><span>Acessórios:</span> <strong>' + accNames.join(', ') + '</strong></div>';
+      if (accTotal > 0) html += '<div class="summary-row"><span>Custo acessórios (x' + (cfg.qty||0) + ' un.):</span> <strong>R$ ' + accTotal.toFixed(2).replace('.', ',') + '</strong></div>';
+    }
+    if (total > 0) html += '<div class="summary-row" style="border-top:1px solid #ddd;padding-top:6px;margin-top:4px;"><span>Subtotal:</span> <strong style="color:#d4af78;">R$ ' + total.toFixed(2).replace('.', ',') + '</strong></div>';
+    html += '</div>';
+  });
+
+  if (grandTotal > 0) {
+    html += '<div class="summary-total">';
+    html += '<div class="gt-label">ESTIMATIVA TOTAL</div>';
+    html += '<div class="gt-value">R$ ' + grandTotal.toFixed(2).replace('.', ',') + '</div>';
+    html += '</div>';
+  }
+
+  body.innerHTML = html;
+  updateBadge();
+}
+
+function buildMessage() {
+  let msg = '*Solicitação de Orçamento — Brindes Personalizados*\n\n';
+  let grandTotal = 0;
+
+  selectedProducts.forEach((key, idx) => {
+    const data = catalog[key];
+    const cfg = configs[key] || {};
+    const labelExtraFixed = getLabelExtraFixed(cfg);
+    const productTotal = cfg.qty && cfg.priceUnit ? (cfg.qty * cfg.priceUnit) + labelExtraFixed : 0;
+    const labelCost = labelExtraFixed;
+
+    let accTotal = 0;
+    const accNames = [];
+    if (cfg.accessories && cfg.accessories.length > 0 && !cfg.accessories.includes('nenhum')) {
+      cfg.accessories.forEach(accId => {
+        const acc = accessories.find(a => a.id === accId);
+        if (acc) {
+          accNames.push(acc.name);
+          accTotal += acc.price * (cfg.qty || 0);
+        }
+      });
+    }
+
+    const total = productTotal + accTotal;
+    grandTotal += total;
+
+    msg += '*Item ' + (idx + 1) + ': ' + data.name + '*\n';
+    msg += '  • Embalagem: ' + (cfg.packaging || '—') + '\n';
+    msg += '  • Fragrância: ' + (cfg.fragrance || '—') + '\n';
+    msg += '  • Quantidade: ' + (cfg.qty ? cfg.qty + ' un.' : '—') + '\n';
+    if (cfg.priceUnit) msg += '  • Preço unit.: R$ ' + cfg.priceUnit.toFixed(2).replace('.', ',') + '\n';
+    msg += '  • Rótulo: ' + (cfg.label ? (labelNames[cfg.label] || '—') : '—') + (cfg.label === 'mensagem' ? ' (+R$10,00)' : (cfg.label === 'padrao' ? ' (Grátis)' : '')) + '\n';
+    if (labelCost > 0) msg += '  • Custo rótulo: R$ ' + labelCost.toFixed(2).replace('.', ',') + '\n';
+    if (accNames.length > 0) {
+      msg += '  • Acessórios: ' + accNames.join(', ') + ' (x' + (cfg.qty||0) + ' un.)\n';
+      if (accTotal > 0) msg += '  • Custo acessórios: R$ ' + accTotal.toFixed(2).replace('.', ',') + '\n';
+    }
+    if (total > 0) msg += '  • Subtotal: R$ ' + total.toFixed(2).replace('.', ',') + '\n';
+    msg += '\n';
+  });
+
+  if (grandTotal > 0) msg += '*💵 Total estimado: R$ ' + grandTotal.toFixed(2).replace('.', ',') + '*\n';
+  msg += '\nAguardo o valor final e prazo de entrega. Obrigado(a)!';
+
+  return msg;
+}
+
+function sendWhatsApp() {
+  const phone = document.getElementById('waNumber').value.replace(/\D/g, '');
+  if (!phone || phone.length < 10) { alert('⚠️ Número de WhatsApp inválido.'); return; }
+  if (selectedProducts.size === 0) { alert('⚠️ Selecione ao menos um produto.'); return; }
+  window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(buildMessage()), '_blank');
+}
+
+function sendEmail() {
+  const email = document.getElementById('emailAddr').value.trim();
+  if (!email || !email.includes('@')) { alert('⚠️ Email inválido.'); return; }
+  if (selectedProducts.size === 0) { alert('⚠️ Selecione ao menos um produto.'); return; }
+  const subject = encodeURIComponent('Orçamento - Brindes Personalizados');
+  const body = encodeURIComponent(buildMessage().replace(/\*/g, ''));
+  window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+}
+</script>
+
+</body>
+</html>
