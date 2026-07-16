@@ -802,17 +802,24 @@ const catalog = {
     icon: '🌿',
     svgKey: 'difusor',
     packaging: [
-      { vol: '60ml',  label: 'Compacto', labels: ['padrao', 'mensagem'] },
+      { vol: '60ml',  label: 'Frasco PET — Altura: 8,5cm Largura: 3,5cm', labels: ['padrao', 'mensagem'] },
       { vol: '140ml', label: 'Frasco PET — Altura: 9cm Largura: 6cm', labels: ['padrao', 'mensagem'] }
     ],
     fragrances: ['Cereja e Avelã', 'Chá Branco', 'Ameixa Negra'],
-    prices: [
-      { qty: 10, unit: 55, label: '10 a 24 un.' },
-      { qty: 25, unit: 48, label: '25 a 49 un.' },
-      { qty: 50, unit: 42, label: '50 a 99 un.' },
-      { qty: 100, unit: 36, label: '100 a 199 un.', best: true },
-      { qty: 200, unit: 30, label: '200+ un.', best: true }
-    ]
+    pricesByPackaging: {
+      '60ml': [
+        { qty: 1,  unit: 15.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 14.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 13.00, label: '25 a 49 un.' },
+        { qty: 50, unit: 12.00, label: '50+ un.', best: true }
+      ],
+      '140ml': [
+        { qty: 1,  unit: 35.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 33.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 31.50, label: '25 a 49 un.' },
+        { qty: 50, unit: 30.00, label: '50+ un.', best: true }
+      ]
+   }
   },
   homespray: {
     name: 'Home Spray',
