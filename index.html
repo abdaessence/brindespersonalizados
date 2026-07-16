@@ -832,12 +832,30 @@ const catalog = {
       { vol: '180ml', label: 'Frasco PET — Altura: 17cm Largura: 6cm',     labels: ['padrao', 'mensagem'] }
     ],
     fragrances: ['Cereja e Avelã', 'Alecrim', 'Chá Branco', 'Ameixa Negra', 'Vanilla e Caramelo'],
-    prices: [
-      { qty: 10, unit: 38, label: '10 a 24 un.' },
-      { qty: 25, unit: 32, label: '25 a 49 un.' },
-      { qty: 50, unit: 27, label: '50 a 99 un.' },
-      { qty: 100, unit: 23, label: '100 a 199 un.', best: true },
-      { qty: 200, unit: 19, label: '200+ un.', best: true }
+    pricesByPackaging: {
+      '30ml': [
+        { qty: 1,  unit: 15.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 14.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 13.00, label: '25 a 49 un.' },
+        { qty: 50, unit: 12.00, label: '50+ un.', best: true }
+      ],
+      '100ml': [
+        { qty: 1,  unit: 32.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 30.50, label: '11 a 24 un.' },
+        { qty: 25, unit: 29.00, label: '25 a 49 un.' },
+        { qty: 50, unit: 27.50, label: '50+ un.', best: true }
+      ],
+      '150ml': [
+        { qty: 1,  unit: 35.00, label: '1 a 10 un.' },
+        { qty: 11, unit: 33.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 31.50, label: '25 a 49 un.' },
+        { qty: 50, unit: 30.00, label: '50+ un.', best: true }
+      ],
+      '180ml': [
+        { qty: 5,  unit: 50.00, label: '5 a 10 un.' },
+        { qty: 11, unit: 47.50, label: '11 a 20 un.' },
+        { qty: 21, unit: 45.00, label: '21 a 34 un.' },
+        { qty: 35, unit: 42.00, label: '35+ un.', best: true }
     ]
   }
 };
