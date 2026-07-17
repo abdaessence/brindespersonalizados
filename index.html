@@ -745,6 +745,7 @@ const packagingImages = {
     '70g': 'https://lh3.googleusercontent.com/d/19y4TIKNjlTPXVrBMp-2Bk1Q0UKJctIJ0',
     '100g': 'https://lh3.googleusercontent.com/d/1KGYd5NCedhr5QkLl8YPGvmvGoCt0mIHE',
     '150g': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqUqHVHwoj8l8ejBWGuMWB_mLz0O4J16nXc0lDaY1wgA&s',
+    '200g': 'https://lh3.googleusercontent.com/d/11KoMhFsra3cJDbFyU8I3bKND0yYZJ8y5',
   },
   difusor: {
     '60ml': 'https://http2.mlstatic.com/D_NQ_NP_2X_871163-MLB99521534985_112025-F-50-frascos-pet-60ml-20410-reto-baixo-difusor-tampa-varetas.webp',
@@ -766,8 +767,9 @@ const catalog = {
     packaging: [
       { vol: '20g',  label: 'Lata 20g — Altura: 7cm Largura: 2,7cm',  labels: ['padrao', 'mensagem'] },
       { vol: '70g',  label: 'Vidro 70g — Altura: 5,5cm Largura: 6cm', labels: ['padrao', 'mensagem'] },
-      { vol: '100g', label: 'Vidro 100g — Altura: 5cm Largura: 6,5cm<br>Pote colorido (Branco, Verde, Azul, Jateado, Rosa, ...)', labels: ['padrao', 'mensagem'] },
-      { vol: '150g', label: 'Vidro 150g — Altura: 8cm Largura: 8cm',  labels: ['padrao', 'mensagem'] }
+      { vol: '100g', label: 'Vidro 100g — Altura: 5cm Largura: 6,5cm<br>Pote colorido (À escolher: Diversas Cores)', labels: ['padrao', 'mensagem'] },
+      { vol: '150g', label: 'Vidro 150g — Altura: 7cm Largura: 7cm',  labels: ['padrao', 'mensagem'] },
+      { vol: '200g', label: 'Vidro 200g — Altura: 8cm Largura: 8cm<br>Pote colorido (À escolher: Diversas Cores)', labels: ['padrao', 'mensagem'] }
     ],
     fragrances: ['Cereja e Avelã', 'Alecrim', 'Baby', 'Bergamota', 'Chá Branco', 'Ameixa Negra', 'Vanilla e Caramelo'],
     pricesByPackaging: {
@@ -794,6 +796,11 @@ const catalog = {
         { qty: 11, unit: 43.50, label: '11 a 20 un.' },
         { qty: 21, unit: 41.50, label: '21 a 34 un.' },
         { qty: 35, unit: 39.50, label: '35+ un.', best: true }
+      ],
+      '200g': [
+        { qty: 5,  unit: 69.00, label: '5 a 10 un.' },
+        { qty: 11, unit: 65.00, label: '11 a 24 un.' },
+        { qty: 25, unit: 59.00, label: '25+ un.', best: true }
       ]
     }
   },
